@@ -14,11 +14,11 @@ public class ProductFactory {
 
 	private static ProductFactory instance = new ProductFactory();
 	private BlockingQueue<LineDTO> queue;
-	// private Lock lock;
+	private boolean areProducersDone;
 
 	private ProductFactory() {
 		queue = new LinkedBlockingQueue<>();
-		// lock = new ReentrantLock();
+		areProducersDone = false;
 	}
 
 	public void add(LineDTO data) {
@@ -29,15 +29,12 @@ public class ProductFactory {
 	}
 
 	public boolean isEmpty(){
-		if (queue.isEmpty()){
-			return true;
-		}
-		return false;
+		return queue.isEmpty();
 	}
 	
 	public LineDTO get() {
 		synchronized (queue) {
-			if (queue.isEmpty()) {
+			while (queue.isEmpty()) {
 				try {
 					queue.wait();
 				} catch (InterruptedException e) {
@@ -47,5 +44,13 @@ public class ProductFactory {
 			//System.out.println("Get element : " + queue.peek() + " - " + Thread.currentThread().getName());
 			return queue.poll();
 		}
+	}
+	
+	public boolean isProducingFinished() {
+		return areProducersDone;
+	}
+	
+	public void setFinished() {
+		this.areProducersDone = true;
 	}
 }

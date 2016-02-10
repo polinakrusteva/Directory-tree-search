@@ -14,7 +14,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 
 public class FileManipulator extends SimpleFileVisitor<Path> {
 
-	private void readLines(File file) throws FileNotFoundException, IOException {
+	public void readLines(File file) throws FileNotFoundException, IOException {
 		String line;
 		long row = 0;
 		try (BufferedReader reader = new BufferedReader(new FileReader(file))) {

@@ -17,6 +17,7 @@ public class Producer extends Thread {
 	public void run() {
 		try {
 			Files.walkFileTree(start, visitor);
+			ProductFactory.getInstance().setFinished();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -14,11 +14,10 @@ public class Consumer extends Thread {
 
 	@Override
 	public void run() {
-		while (true) {
+		while (!ProductFactory.getInstance().isProducingFinished() || !ProductFactory.getInstance().isEmpty()) {
 			LineDTO data = ProductFactory.getInstance().get();
 			if (data.getLine().contains(keyword)) {
 				System.out.println(data.toString());
-				break;
 			}
 		}
 	}
