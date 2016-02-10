@@ -14,26 +14,30 @@ public class ProductFactory {
 
 	private static ProductFactory instance = new ProductFactory();
 	private BlockingQueue<LineDTO> queue;
-	//private Lock lock;
+	// private Lock lock;
 
 	private ProductFactory() {
 		queue = new LinkedBlockingQueue<>();
-		//lock = new ReentrantLock();
+		// lock = new ReentrantLock();
 	}
 
 	public void add(LineDTO data) {
-		queue.add(data);
-		queue.notify();
+		synchronized (queue) {
+			queue.add(data);
+			queue.notify();
+		}
 	}
 
 	public LineDTO get() {
-		if (queue.isEmpty()) {
-			try {
-				queue.wait();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+		synchronized (queue) {
+			if (queue.isEmpty()) {
+				try {
+					queue.wait();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
+			return queue.poll();
 		}
-		return queue.poll();
 	}
 }

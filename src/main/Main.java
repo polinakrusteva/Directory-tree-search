@@ -11,11 +11,11 @@ public class Main {
 	public static void main(String[] args) {
 		Path path = Paths.get("/home/polinakk/Desktop/Google");
 		Consumer.setKeyword("polokopr");
-		Thread[] producers = new Thread[] { new Producer(path), new Producer(path), new Consumer() };
+		Thread producer = new Producer(path);
+		Thread consumer = new Consumer();
 		
-		for (Thread t : producers) {
-			t.start();
-		}
+		producer.start();
+		consumer.start();
 		
 	}
 	
