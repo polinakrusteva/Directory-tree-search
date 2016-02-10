@@ -8,15 +8,39 @@ import implementation.Producer;
 
 public class Main {
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		Path path = Paths.get("/home/polinakk/Desktop/Test");
-		Consumer.setKeyword("poli");
-		Thread producer = new Producer(path);
-		Thread consumer = new Consumer();
+		Consumer.setKeyword("Integer");
 		
-		producer.start();
-		consumer.start();
+		int numberProducers = 3;
+		int numberConsumers = 3;
 		
+		Thread[] producers = new Thread[numberProducers];
+		Thread[] consumers = new Thread[numberConsumers];
+		
+		for(int i = 0; i < numberConsumers; i++) {
+			producers[i] = new Producer(path);
+		}
+		
+		for(int i = 0; i < numberConsumers; i++) {
+			consumers[i] = new Consumer();
+		}
+		
+		for(Thread producer : producers) {
+			producer.start();
+		}
+		
+		for(Thread consumer : consumers) {
+			consumer.start();
+		}
+		
+		for(Thread producer : producers) {
+			producer.join();
+		}
+		
+		for(Thread consumer : consumers) {
+			consumer.join();
+		}
 	}
 	
 }
