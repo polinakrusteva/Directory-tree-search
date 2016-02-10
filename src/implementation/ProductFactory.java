@@ -28,6 +28,13 @@ public class ProductFactory {
 		}
 	}
 
+	public boolean isEmpty(){
+		if (queue.isEmpty()){
+			return true;
+		}
+		return false;
+	}
+	
 	public LineDTO get() {
 		synchronized (queue) {
 			if (queue.isEmpty()) {
@@ -37,6 +44,7 @@ public class ProductFactory {
 					e.printStackTrace();
 				}
 			}
+			//System.out.println("Get element : " + queue.peek() + " - " + Thread.currentThread().getName());
 			return queue.poll();
 		}
 	}

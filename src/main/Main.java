@@ -9,8 +9,8 @@ import implementation.Producer;
 public class Main {
 	
 	public static void main(String[] args) {
-		Path path = Paths.get("/home/polinakk/Desktop/Google");
-		Consumer.setKeyword("polokopr");
+		Path path = Paths.get("/home/polinakk/Desktop/Test");
+		Consumer.setKeyword("poli");
 		Thread producer = new Producer(path);
 		Thread consumer = new Consumer();
 		

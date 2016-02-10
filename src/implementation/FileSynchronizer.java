@@ -31,7 +31,7 @@ public class FileSynchronizer {
 		if (isVisited(name)) { 
 			return false;
 		}
-		System.out.println(String.format("Adding %s to visited - %s", name, Thread.currentThread().getName()));
+		//System.out.println(String.format("Adding %s to visited - %s", name, Thread.currentThread().getName()));
 		visitedFiles.put(name, true);
 		return true;
 	}
