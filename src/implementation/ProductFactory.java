@@ -41,7 +41,6 @@ public class ProductFactory {
 					e.printStackTrace();
 				}
 			}
-			//System.out.println("Get element : " + queue.peek() + " - " + Thread.currentThread().getName());
 			return queue.poll();
 		}
 	}
